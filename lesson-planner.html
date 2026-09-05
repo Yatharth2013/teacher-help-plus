@@ -1,0 +1,734 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lesson Planner | TeacherHelpPlus</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #0b1020;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 18px 8%;
+
+      background: #111827;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .logo {
+      text-decoration: none;
+      color: white;
+
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #60a5fa;
+    }
+
+    .back-btn {
+      text-decoration: none;
+
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    .back-btn:hover {
+      color: white;
+    }
+
+
+    /* MAIN */
+
+    .container {
+      max-width: 900px;
+
+      margin: auto;
+
+      padding: 70px 20px;
+    }
+
+    .heading {
+      text-align: center;
+
+      margin-bottom: 45px;
+    }
+
+    .badge {
+      display: inline-block;
+
+      padding: 8px 16px;
+
+      border-radius: 30px;
+
+      background: rgba(37, 99, 235, 0.15);
+
+      border: 1px solid rgba(96, 165, 250, 0.3);
+
+      color: #60a5fa;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 48px;
+
+      margin-bottom: 12px;
+    }
+
+    h1 span {
+      color: #60a5fa;
+    }
+
+    .heading p {
+      color: #94a3b8;
+    }
+
+
+    /* FORM */
+
+    .planner-card {
+      background: #111827;
+
+      border: 1px solid #1e293b;
+
+      border-radius: 20px;
+
+      padding: 35px;
+    }
+
+    .form-grid {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+
+      color: #cbd5e1;
+
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+
+      padding: 14px;
+
+      background: #0b1020;
+
+      border: 1px solid #334155;
+
+      border-radius: 10px;
+
+      color: white;
+
+      font-family: inherit;
+
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #60a5fa;
+
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+
+    /* BUTTON */
+
+    .generate-btn {
+      width: 100%;
+
+      margin-top: 25px;
+
+      padding: 15px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #2563eb;
+
+      color: white;
+
+      font-family: inherit;
+
+      font-size: 16px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .generate-btn:hover {
+      background: #3b82f6;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* RESULT */
+
+    .result {
+      display: none;
+
+      margin-top: 35px;
+
+      background: #111827;
+
+      border: 1px solid #334155;
+
+      border-radius: 20px;
+
+      padding: 35px;
+    }
+
+    .result.active {
+      display: block;
+    }
+
+    .result h2 {
+      color: #60a5fa;
+
+      margin-bottom: 25px;
+    }
+
+    .lesson-section {
+      margin-bottom: 25px;
+
+      padding: 20px;
+
+      background: #0b1020;
+
+      border-left: 4px solid #2563eb;
+
+      border-radius: 10px;
+    }
+
+    .lesson-section h3 {
+      margin-bottom: 8px;
+
+      color: #f8fafc;
+    }
+
+    .lesson-section p {
+      color: #94a3b8;
+
+      line-height: 1.7;
+    }
+
+    .print-btn {
+      margin-top: 10px;
+
+      padding: 13px 25px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #22c55e;
+
+      color: white;
+
+      font-family: inherit;
+
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .print-btn:hover {
+      background: #16a34a;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+
+      padding: 40px 20px;
+
+      color: #64748b;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+
+      nav {
+        padding: 15px 5%;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      h1 {
+        font-size: 35px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: auto;
+      }
+
+      .planner-card {
+        padding: 22px;
+      }
+
+    }
+
+
+    /* PRINT */
+
+    @media print {
+
+      nav,
+      .planner-card,
+      footer,
+      .print-btn {
+        display: none;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      .result {
+        display: block;
+        border: none;
+      }
+
+      .lesson-section {
+        background: white;
+        border: 1px solid #ddd;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <a href="index.html" class="logo">
+      🎓 Teacher<span>HelpPlus</span>
+    </a>
+
+    <a href="index.html" class="back-btn">
+      ← Back Home
+    </a>
+
+  </nav>
+
+
+  <!-- MAIN -->
+
+  <main class="container">
+
+    <div class="heading">
+
+      <div class="badge">
+        📝 Smart Lesson Planning
+      </div>
+
+      <h1>
+        Lesson <span>Planner</span>
+      </h1>
+
+      <p>
+        Create a complete lesson plan in seconds.
+      </p>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div class="planner-card">
+
+      <div class="form-grid">
+
+
+        <div class="form-group">
+
+          <label>Subject</label>
+
+          <input
+            type="text"
+            id="subject"
+            placeholder="Example: Science"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Class / Grade</label>
+
+          <input
+            type="text"
+            id="grade"
+            placeholder="Example: Grade 7"
+          >
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>Lesson Topic</label>
+
+          <input
+            type="text"
+            id="topic"
+            placeholder="Example: The Solar System"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Lesson Duration</label>
+
+          <select id="duration">
+
+            <option value="30 minutes">30 Minutes</option>
+
+            <option value="45 minutes">45 Minutes</option>
+
+            <option value="60 minutes">60 Minutes</option>
+
+            <option value="90 minutes">90 Minutes</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Teaching Method</label>
+
+          <select id="method">
+
+            <option value="Discussion">Discussion</option>
+
+            <option value="Lecture">Lecture</option>
+
+            <option value="Group Activity">Group Activity</option>
+
+            <option value="Demonstration">Demonstration</option>
+
+            <option value="Project Based Learning">
+              Project Based Learning
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>Learning Objective</label>
+
+          <textarea
+            id="objective"
+            placeholder="What should students learn?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="generate-btn"
+        onclick="generateLesson()"
+      >
+
+        ✨ Generate Lesson Plan
+
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+      class="result"
+      id="result"
+    >
+
+      <h2>
+        📚 Your Lesson Plan
+      </h2>
+
+
+      <div class="lesson-section">
+
+        <h3>Lesson Information</h3>
+
+        <p id="lessonInfo"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>🎯 Learning Objective</h3>
+
+        <p id="lessonObjective"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>🚀 Introduction</h3>
+
+        <p id="introduction"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>📖 Main Teaching Activity</h3>
+
+        <p id="activity"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>💬 Student Discussion</h3>
+
+        <p id="discussion"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>📝 Assessment</h3>
+
+        <p id="assessment"></p>
+
+      </div>
+
+
+      <div class="lesson-section">
+
+        <h3>🏠 Homework</h3>
+
+        <p id="homework"></p>
+
+      </div>
+
+
+      <button
+        class="print-btn"
+        onclick="window.print()"
+      >
+
+        🖨️ Print Lesson Plan
+
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+
+    🎓 TeacherHelpPlus <br>
+
+    Helping Teachers Teach Better ❤️
+
+  </footer>
+
+
+  <script>
+
+    function generateLesson() {
+
+      const subject =
+        document.getElementById("subject").value.trim();
+
+      const grade =
+        document.getElementById("grade").value.trim();
+
+      const topic =
+        document.getElementById("topic").value.trim();
+
+      const duration =
+        document.getElementById("duration").value;
+
+      const method =
+        document.getElementById("method").value;
+
+      const objective =
+        document.getElementById("objective").value.trim();
+
+
+      /* VALIDATION */
+
+      if (!subject || !grade || !topic) {
+
+        alert(
+          "Please enter Subject, Class/Grade, and Lesson Topic!"
+        );
+
+        return;
+      }
+
+
+      /* GENERATE LESSON PLAN */
+
+      document.getElementById("lessonInfo").innerHTML =
+        "<strong>Subject:</strong> " + subject +
+        "<br>" +
+        "<strong>Class:</strong> " + grade +
+        "<br>" +
+        "<strong>Topic:</strong> " + topic +
+        "<br>" +
+        "<strong>Duration:</strong> " + duration +
+        "<br>" +
+        "<strong>Teaching Method:</strong> " + method;
+
+
+      document.getElementById("lessonObjective").textContent =
+        objective ||
+        "By the end of this lesson, students will understand the basic concepts of " +
+        topic +
+        " and explain them using their own words.";
+
+
+      document.getElementById("introduction").textContent =
+        "Begin the lesson by asking students what they already know about " +
+        topic +
+        ". Introduce the topic with an interesting question, real-life example, or short activity.";
+
+
+      document.getElementById("activity").textContent =
+        "Explain the important concepts of " +
+        topic +
+        " using the " +
+        method +
+        " teaching method. Encourage students to participate, ask questions, and share their ideas.";
+
+
+      document.getElementById("discussion").textContent =
+        "Ask students to discuss the key points they learned about " +
+        topic +
+        ". Allow them to share examples and answer questions with their classmates.";
+
+
+      document.getElementById("assessment").textContent =
+        "Check student understanding by asking 3 to 5 questions about " +
+        topic +
+        ". Teachers can also use a short quiz, worksheet, or group activity.";
+
+
+      document.getElementById("homework").textContent =
+        "Ask students to revise today's lesson on " +
+        topic +
+        " and write five important points or examples related to the topic.";
+
+
+      /* SHOW RESULT */
+
+      const result =
+        document.getElementById("result");
+
+      result.classList.add("active");
+
+
+      /* SCROLL TO RESULT */
+
+      setTimeout(function () {
+
+        result.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }, 100);
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
