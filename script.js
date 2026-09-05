@@ -11,11 +11,3 @@ getStartedButton.addEventListener("click", function () {
   });
 });
 
-// Tool buttons
-const toolButtons = document.querySelectorAll(".tool-card button");
-
-toolButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    alert("🚀 This tool is coming soon!");
-  });
-});
